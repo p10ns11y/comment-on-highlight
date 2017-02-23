@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+  font-family: -apple-system,
+    '.SFNSText-Regular',
+    'San Francisco',
+    'Roboto',
+    'Segoe UI',
+    'Helvetica Neue',
+    'Lucida Grande',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* For accessibility way of hiding */
+.visuallyhidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
