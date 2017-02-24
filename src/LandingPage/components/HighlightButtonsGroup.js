@@ -1,7 +1,7 @@
 import React from 'react';
 import './HighlightButtonsGroup.css';
 
-const HighlightButtonsGroup =  ({ toggleCommentBox, hidden, layout }) => (
+const HighlightButtonsGroup =  ({ saveAndRestoreSelection, hidden, layout }) => (
   <div hidden={hidden}
     style={{
       position: layout.position,
@@ -13,7 +13,7 @@ const HighlightButtonsGroup =  ({ toggleCommentBox, hidden, layout }) => (
   >
     <div className="buttons-group">
       <button
-        onClick={toggleCommentBox}
+        onClick={saveAndRestoreSelection}
         className="buttons-group__comment-btn"
       >
         comment

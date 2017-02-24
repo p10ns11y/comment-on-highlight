@@ -7,7 +7,7 @@ export default class Content extends React.Component {
 
   componentDidMount() {
     if (this.state.editable) this.contentContainer.focus();
-
+    console.log(this);
     document.addEventListener('mouseup', this.bubbleUpSelectedRegion)
   }
 
@@ -22,11 +22,16 @@ export default class Content extends React.Component {
   }
 
   bubbleUpSelectedRegion =  () => {
+    const { setBtnsGroupPosition, showButtonsGroup } = this.props;
+
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const rect = range.getBoundingClientRect();
 
-    if (selection.toString()) this.props.setCommentButtonPosition(rect);
+    if (selection.toString()) {
+      setBtnsGroupPosition(rect);
+      showButtonsGroup();
+    }
   }
 
   toggleEditMode = () => {
@@ -108,7 +113,7 @@ export default class Content extends React.Component {
           <p>The two most important characteristics of good design are:</p>
           <ul>
             <li>
-              Discoverability - A user can figure out what actions are
+              <span id="Timestamp123332323">Discoverability - A user can</span> figure out what actions are
               possible and how to perform them using the product
               (How can I use it?)
             </li>

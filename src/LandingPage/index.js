@@ -5,10 +5,12 @@ import CommentBox from './components/CommentBox';
 import HighlightButtonsGroup from './components/HighlightButtonsGroup';
 import CommentsList from './components/CommentsList';
 
+import { saveSelection, restoreSelection } from './selection-utils';
+
 class LandingPage extends React.Component {
   state = {
     hiddenCommentBox: true,
-    hiddenButtonGroup: false,
+    hiddenButtonGroup: true,
     highlightBtnsGroupLayout: {
       position: 'absolute',
       left: '0',
@@ -16,14 +18,14 @@ class LandingPage extends React.Component {
       heightInPixel: 28,
       widthInPixel: 70
     },
+    selectedRange: null,
     comments: [
-      { id: 'czx11s', message: 'great article' },
-      { id: 'cdx12s', message: 'very well written !' },
-      { id: 'cza13s', message: 'wow an eye opener!' }
+      { id: 'Timestamp123332323', message: 'This is it' },
+      { id: 'modernComplex', message: 'Yeah! ' }
     ]
   }
 
-  setCommentButtonPosition = ({ left, top, width, height }) => {
+  sethighlightBtnsGroupPosition = ({ left, top, width, height }) => {
     const { heightInPixel, widthInPixel } = this.state.highlightBtnsGroupLayout;
     const computedLeft = left + (width / 2) - (widthInPixel / 2);
     const computedTop = window.scrollY + top - heightInPixel;
@@ -38,6 +40,17 @@ class LandingPage extends React.Component {
     });
   }
 
+  showButtonsGroup = () => {
+    this.setState({ hiddenButtonGroup: false });
+  }
+
+  saveAndRestoreSelection = () => {
+    const savedSelection = saveSelection();
+    this.setState({ selectedRange: savedSelection });
+    this.toggleCommentBox();
+    restoreSelection(savedSelection);
+  }
+
   // Taking advantage of es6 object computed property
   toggleState = (updateState) => {
     this.setState({ [updateState]: !this.state[updateState] });
@@ -48,8 +61,8 @@ class LandingPage extends React.Component {
   }
 
   // Could be used outside click of HighlightButtonsGroup
-  toggleButtonGroup = () => {
-    this.toggleState('popedUpButtonGroup');
+  toggleButtonsGroup = () => {
+    this.toggleState('hiddenButtonGroup');
   }
 
   updateCommentList = (newComment) => {
@@ -60,25 +73,31 @@ class LandingPage extends React.Component {
     const {
       hiddenCommentBox,
       hiddenButtonGroup,
-      highlightBtnsGroupLayout
+      highlightBtnsGroupLayout,
+      comments,
+      selectedRange
     } = this.state;
 
     return (
       <div>
-        <Content setCommentButtonPosition={this.setCommentButtonPosition} />
+        <Content
+          setBtnsGroupPosition={this.sethighlightBtnsGroupPosition}
+          showButtonsGroup={this.showButtonsGroup}
+        />
         <HighlightButtonsGroup
           layout={highlightBtnsGroupLayout}
           hidden={hiddenButtonGroup}
-          toggleCommentBox={this.toggleCommentBox}
+          saveAndRestoreSelection={this.saveAndRestoreSelection}
         />
         <CommentBox
           hidden={hiddenCommentBox}
+          selectedRange={selectedRange}
           updateCommentList={this.updateCommentList}
           toggleCommentBox={this.toggleCommentBox}
-          toggleButtonGroup={this.toggleButtonGroup}
+          toggleButtonsGroup={this.toggleButtonsGroup}
         />
         <CommentsList
-          comments={this.state.comments}
+          comments={comments}
         />
       </div>
     );

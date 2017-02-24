@@ -9,16 +9,25 @@ class CommentBox extends React.Component {
   handleCommentSubmit = (e) => {
     e.preventDefault();
 
-    const { updateCommentList, toggleCommentBox, toggleButtonGroup } = this.props;
+    const {
+      updateCommentList,
+      toggleCommentBox,
+      toggleButtonsGroup
+    } = this.props;
 
     if (this.state.comment) {
+      const uniqueId = Date.now();
+
+      this.wrapSelectedTextWithId(uniqueId);
+
       updateCommentList({
-        id: Date.now(),
+        id: uniqueId,
         message: this.state.comment
       });
 
-      toggleButtonGroup();
+      toggleButtonsGroup();
       toggleCommentBox();
+      this.reset();
     }
   }
 
@@ -28,6 +37,11 @@ class CommentBox extends React.Component {
 
   reset = (e) => { this.setState({ comment: '' }); }
 
+  wrapSelectedTextWithId = (uniqueId) => {
+    const markWrapper = document.createElement('mark');
+    markWrapper.setAttribute('id', uniqueId);
+    this.props.selectedRange.surroundContents(markWrapper);
+  }
 
   render() {
     const { hidden } = this.props;
