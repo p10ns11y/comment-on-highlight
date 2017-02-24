@@ -1,9 +1,9 @@
 import React from 'react';
 
-const HighlightButtonsGroup =  ({ toggleCommentInput }) => (
-  <div>
+const HighlightButtonsGroup =  ({ toggleCommentBox, hidden }) => (
+  <div hidden={hidden}>
     <button>high</button>
-    <button onClick={toggleCommentInput}>comment</button>
+    <button onClick={toggleCommentBox}>comment</button>
     <button>nothing</button>
   </div>
 )

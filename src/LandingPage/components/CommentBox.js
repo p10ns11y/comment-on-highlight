@@ -9,19 +9,24 @@ class CommentBox extends React.Component {
   handleCommentSubmit = (e) => {
     e.preventDefault();
 
-    const { updateCommentList } = this.props;
+    const { updateCommentList, toggleCommentBox, toggleButtonGroup } = this.props;
 
     if (this.state.comment) {
       updateCommentList({
         id: Date.now(),
         message: this.state.comment
       });
+
+      toggleButtonGroup();
+      toggleCommentBox();
     }
   }
 
   handleCommentChange = (e) => {
     this.setState({ comment: e.target.value });
   }
+
+  reset = (e) => { this.setState({ comment: '' }); }
 
 
   render() {

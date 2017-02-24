@@ -7,7 +7,8 @@ import CommentsList from './components/CommentsList';
 
 class LandingPage extends React.Component {
   state = {
-    hideCommentInput: true,
+    hiddenCommentBox: true,
+    popedUpButtonGroup: false,
     comments: [
       { id: 'czx11s', message: 'great article' },
       { id: 'cdx12s', message: 'very well written !' },
@@ -20,8 +21,13 @@ class LandingPage extends React.Component {
     this.setState({ [updateState]: !this.state[updateState] });
   }
 
-  toggleCommentInput = () => {
-    this.toggleState('hideCommentInput');
+  toggleCommentBox = () => {
+    this.toggleState('hiddenCommentBox');
+  }
+
+  // Could be used outside click of HighlightButtonsGroup
+  toggleButtonGroup = () => {
+    this.toggleState('popedUpButtonGroup');
   }
 
   updateCommentList = (newComment) => {
@@ -29,17 +35,20 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { hideCommentInput } = this.state;
+    const { hiddenCommentBox, popedUpButtonGroup } = this.state;
 
     return (
       <div>
         <Content />
         <HighlightButtonsGroup
-          toggleCommentInput={this.toggleCommentInput}
+          hidden={popedUpButtonGroup}
+          toggleCommentBox={this.toggleCommentBox}
         />
         <CommentBox
-          hidden={hideCommentInput}
+          hidden={hiddenCommentBox}
           updateCommentList={this.updateCommentList}
+          toggleCommentBox={this.toggleCommentBox}
+          toggleButtonGroup={this.toggleButtonGroup}
         />
         <CommentsList
           comments={this.state.comments}
