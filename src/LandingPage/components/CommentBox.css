@@ -2,19 +2,30 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   width: 20%;
   height: 140px;
   left: 75%;
   top: 50%;
   position: fixed;
-  margin-left: 50px;
+  margin-left: 40px;
+  border: 1px solid darkgray;
+  padding: 4px;
 }
 
 .comment-box__text-area {
+  border: 0 none;
   resize: none;
   width: 100%;
   height: 100px;
-  margin-left: 40px;
   position: relative;
+}
+
+.comment-box__submit-button {
+  font-size: 16px;
+  font-weight: 600;
+  background: green;
+  color: white;
+  border: 0 none;
+  border-radius: 5px;
 }
