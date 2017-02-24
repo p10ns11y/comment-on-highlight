@@ -8,7 +8,14 @@ import CommentsList from './components/CommentsList';
 class LandingPage extends React.Component {
   state = {
     hiddenCommentBox: true,
-    popedUpButtonGroup: false,
+    hiddenButtonGroup: false,
+    highlightBtnsGroupLayout: {
+      position: 'absolute',
+      left: '0',
+      top: '0',
+      heightInPixel: 28,
+      widthInPixel: 70
+    },
     comments: [
       { id: 'czx11s', message: 'great article' },
       { id: 'cdx12s', message: 'very well written !' },
@@ -60,7 +67,8 @@ class LandingPage extends React.Component {
       <div>
         <Content setCommentButtonPosition={this.setCommentButtonPosition} />
         <HighlightButtonsGroup
-          hidden={popedUpButtonGroup}
+          layout={highlightBtnsGroupLayout}
+          hidden={hiddenButtonGroup}
           toggleCommentBox={this.toggleCommentBox}
         />
         <CommentBox

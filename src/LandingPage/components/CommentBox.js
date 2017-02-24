@@ -49,7 +49,7 @@ class CommentBox extends React.Component {
             value={this.state.comment}
           >
           </textarea>
-          <button>submit</button>
+          <button className="comment-box__submit-button">submit</button>
         </form>
       </div>
     );
