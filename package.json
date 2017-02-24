@@ -1,10 +1,11 @@
 {
-  "name": "comment-highlight",
+  "name": "comment-on-highlight",
   "author": "Peramanathan Sathyamoorthy(sathyam.peram@gmail.com)",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
     "enzyme": "^2.7.1",
+    "gh-pages": "^0.12.0",
     "jest-enzyme": "^2.1.2",
     "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.9.0"
@@ -17,6 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "homepage": "https://p10ns11y.github.io/comment-on-highlight"
 }

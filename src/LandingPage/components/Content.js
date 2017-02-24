@@ -1,3 +1,4 @@
+// vim: syntax=JSX
 import React from 'react';
 
 export default class Content extends React.Component {
@@ -7,7 +8,6 @@ export default class Content extends React.Component {
 
   componentDidMount() {
     if (this.state.editable) this.contentContainer.focus();
-    console.log(this);
     document.addEventListener('mouseup', this.bubbleUpSelectedRegion)
   }
 
