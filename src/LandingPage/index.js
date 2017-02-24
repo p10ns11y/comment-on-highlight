@@ -16,6 +16,21 @@ class LandingPage extends React.Component {
     ]
   }
 
+  setCommentButtonPosition = ({ left, top, width, height }) => {
+    const { heightInPixel, widthInPixel } = this.state.highlightBtnsGroupLayout;
+    const computedLeft = left + (width / 2) - (widthInPixel / 2);
+    const computedTop = window.scrollY + top - heightInPixel;
+
+    this.setState({
+      highlightBtnsGroupLayout: Object.assign(
+        this.state.highlightBtnsGroupLayout, {
+          left: computedLeft,
+          top: computedTop
+        }
+      )
+    });
+  }
+
   // Taking advantage of es6 object computed property
   toggleState = (updateState) => {
     this.setState({ [updateState]: !this.state[updateState] });
@@ -35,11 +50,15 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { hiddenCommentBox, popedUpButtonGroup } = this.state;
+    const {
+      hiddenCommentBox,
+      hiddenButtonGroup,
+      highlightBtnsGroupLayout
+    } = this.state;
 
     return (
       <div>
-        <Content />
+        <Content setCommentButtonPosition={this.setCommentButtonPosition} />
         <HighlightButtonsGroup
           hidden={popedUpButtonGroup}
           toggleCommentBox={this.toggleCommentBox}

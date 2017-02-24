@@ -7,12 +7,26 @@ export default class Content extends React.Component {
 
   componentDidMount() {
     if (this.state.editable) this.contentContainer.focus();
+
+    document.addEventListener('mouseup', this.bubbleUpSelectedRegion)
+  }
+
+  componentWillUnmount() {
+    document.removeListener('mouseup', this.bubbleUpSelectedRegion);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.editable && this.state.editable) {
       this.contentContainer.focus();
     }
+  }
+
+  bubbleUpSelectedRegion =  () => {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+
+    if (selection.toString()) this.props.setCommentButtonPosition(rect);
   }
 
   toggleEditMode = () => {
@@ -55,7 +69,7 @@ export default class Content extends React.Component {
             recognizes that flying an airplane is a complicated task that he is
             unable to perform.   However, when he struggles to operate a door,
             switches, water faucets, and other common everyday devices,
-            he becomes quite upset. {'&#9829; \u2765'}
+            he becomes quite upset.
           </p>
           <p>
             There are few things quite so simple as a door. To open it, you can
@@ -135,7 +149,7 @@ export default class Content extends React.Component {
             a complex device to perform the simple task of washing clothing.
           </p>
 
-          <h2>The Complexity of Modern Devices</h2>
+          <h2 id="modernComplex">The Complexity of Modern Devices</h2>
           <p>Begin with the premise: all artificial things are designed.</p>
           <p>
             That is not to say that they are designed well, or that much
