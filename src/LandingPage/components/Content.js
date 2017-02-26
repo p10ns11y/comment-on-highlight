@@ -8,11 +8,6 @@ export default class Content extends React.Component {
 
   componentDidMount() {
     if (this.state.editable) this.contentContainer.focus();
-    document.addEventListener('mouseup', this.bubbleUpSelectedRegion)
-  }
-
-  componentWillUnmount() {
-    document.removeListener('mouseup', this.bubbleUpSelectedRegion);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,14 +16,22 @@ export default class Content extends React.Component {
     }
   }
 
-  bubbleUpSelectedRegion =  () => {
+  bubbleUpEditableSelectedRegion = (e) => {
+    const arrowEvents = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'];
+    if (arrowEvents.includes(e.key) && e.shiftKey) {
+      this.bubbleUpSelectedRegion(e);
+    }
+  }
+
+  bubbleUpSelectedRegion =  (e) => {
     const { setBtnsGroupPosition, showButtonsGroup } = this.props;
 
     const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const rect = range.getBoundingClientRect();
 
     if (selection.toString()) {
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+
       setBtnsGroupPosition(rect);
       showButtonsGroup();
     }
@@ -63,6 +66,9 @@ export default class Content extends React.Component {
           ref={(elm) => { this.contentContainer = elm; }}
           contentEditable={this.state.editable}
           style={contentSectionStyles}
+          onMouseUp={this.bubbleUpSelectedRegion}
+          onMouseMove={this.bubbleUpSelectedRegion}
+          onKeyUp={this.bubbleUpEditableSelectedRegion}
         >
           <h1 style={{ textAlign: 'center'}}>
             The Psychopathology of Everyday Things
@@ -113,9 +119,9 @@ export default class Content extends React.Component {
           <p>The two most important characteristics of good design are:</p>
           <ul>
             <li>
-              <span id="Timestamp123332323">Discoverability - A user can</span> figure out what actions are
-              possible and how to perform them using the product
-              (How can I use it?)
+              <span id="Timestamp123332323">Discoverability - A user can</span>
+              figure out what actions are possible and how to perform them using
+              the product (How can I use it?)
             </li>
             <li>
               Understanding - A user understands the benefit of using

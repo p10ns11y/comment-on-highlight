@@ -35,7 +35,7 @@ class CommentBox extends React.Component {
     this.setState({ comment: e.target.value });
   }
 
-  reset = (e) => { this.setState({ comment: '' }); }
+  reset = () => { this.setState({ comment: '' }); }
 
   wrapSelectedTextWithId = (uniqueId) => {
     const markWrapper = document.createElement('mark');
@@ -63,7 +63,9 @@ class CommentBox extends React.Component {
             value={this.state.comment}
           >
           </textarea>
-          <button className="comment-box__submit-button">submit</button>
+          <button type="submit" className="comment-box__submit-button">
+            submit
+          </button>
         </form>
       </div>
     );
