@@ -62,13 +62,34 @@ describe('LandingPage', () => {
   });
 
   describe('LandingPage/CommentBox', () => {
-    it('Changes value upon input ', () => {
+    it('changes value upon input ', () => {
       const commentBoxWrapper = shallow(<CommentBox />);
       commentBoxWrapper.find('textarea').simulate('change', {
         target: { value: 'Prem'}
       });
 
      expect(commentBoxWrapper.state('comment')).toEqual('Prem');
+    });
+
+    it('submits the form', () => {
+      const landingPageWrapper = mount(<LandingPage />);
+      landingPageWrapper.setState({
+        selectedRange: { surroundContents : jest.fn() }
+      });
+      const commentBoxWrapper = landingPageWrapper.find(CommentBox)
+
+      commentBoxWrapper.find('textarea').simulate('change', {
+        target: { value: 'Prem'}
+      });
+
+      commentBoxWrapper.find('form').simulate('submit');
+      expect(
+        landingPageWrapper
+          .state('comments')
+          .slice(-1)
+          .pop()['message']
+      ).toEqual('Prem');
+
     });
   });
 });
