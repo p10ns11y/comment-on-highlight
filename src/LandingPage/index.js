@@ -25,6 +25,7 @@ class LandingPage extends React.Component {
     ]
   }
 
+  // seleted region reactangle [left, top, width, hieght]
   sethighlightBtnsGroupPosition = ({ left, top, width, height }) => {
     const { heightInPixel, widthInPixel } = this.state.highlightBtnsGroupLayout;
     const computedLeft = left + (width / 2) - (widthInPixel / 2);
